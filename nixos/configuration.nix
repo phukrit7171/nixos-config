@@ -140,6 +140,7 @@
       discord-ptb
       google-chrome
       fnm
+      uv
     ];
   };
 
@@ -148,6 +149,15 @@
   # =================================================================
 
   programs.firefox.enable = true;
+
+  programs.git = {
+    enable = true;
+    config = {
+      user.name = "Mr.Phukrit Kittinontana";
+      user.email = "phukrit7171@gmail.com";
+      init.defaultBranch = "main";
+    };
+  };
 
   programs.direnv = {
     enable = true;
@@ -163,7 +173,6 @@
     git
     grc
     sbctl
-    uv
   ];
 
   programs.nix-ld.enable = true;
