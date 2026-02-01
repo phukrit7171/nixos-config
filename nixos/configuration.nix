@@ -7,14 +7,14 @@
   # =================================================================
   # 1. BOOT & SYSTEM SETTINGS
   # =================================================================
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
-  
+
   boot.initrd.systemd.enable = true;
   boot.initrd.systemd.tpm2.enable = true;
-  
+
   # Security tools
   security.tpm2.enable = true;
   security.tpm2.pkcs11.enable = true;
@@ -38,13 +38,13 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
-  
+
   # ZRAM & Custom Scheduler
   zramSwap.enable = true;
-  
+
   services.scx = {
     enable = true;
-    scheduler = "scx_rusty"; 
+    scheduler = "scx_rusty";
   };
 
   # =================================================================
@@ -53,15 +53,15 @@
 
   networking.hostName = "nixos-phukrit";
   networking.networkmanager.enable = true;
-  
+
   time.timeZone = "Asia/Bangkok";
-  
+
   # =================================================================
   # 3. DESKTOP ENVIRONMENT & AUDIO
   # =================================================================
 
   services.xserver.enable = true;
-  
+
   # KDE Plasma 6
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -97,7 +97,7 @@
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
-    
+
     prime = {
       offload = {
         enable = true;
@@ -118,7 +118,13 @@
   # =================================================================
 
   programs.starship.enable = true;
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    # Add this block:
+    interactiveShellInit = ''
+      fnm env --use-on-cd | source
+    '';
+  };
 
   users.users.phukrit7171 = {
     isNormalUser = true;
@@ -142,7 +148,7 @@
   # =================================================================
 
   programs.firefox.enable = true;
-  
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -181,7 +187,7 @@
 
   # Bluetooth
   hardware.bluetooth = {
-    enable = true; 
+    enable = true;
     powerOnBoot = true;
     settings = {
       General = {
@@ -203,11 +209,11 @@
       RemainAfterExit = true;
     };
   };
-  
+
   # =================================================================
   # 8. STATE VERSION
   # =================================================================
-  
+
   # Do not change this unless you reinstall.
   system.stateVersion = "25.11";
 }
