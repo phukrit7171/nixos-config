@@ -5,20 +5,19 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, ...  }@inputs: {
-    nixosConfigurations = {
-      # Hostname: nixos-phukrit
-      nixos-phukrit = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        # Pass 'inputs' to all modules so you can use them there
-        specialArgs = { inherit inputs; };
-
-        modules = [
-          ./nixos/configuration.nix
-          ./nixos/hardware-configuration.nix
-        ];
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    {
+      nixosConfigurations = {
+        nixos-phukrit = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+            modules = [
+              ./hosts/nixos-phukrit/configuration.nix
+            ];
+          };
+        };
       };
     };
-  };
 }
