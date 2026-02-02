@@ -11,12 +11,14 @@
       nixosConfigurations = {
         nixos-phukrit = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-            modules = [
-              ./hosts/nixos-phukrit/configuration.nix
-            ];
-          };
+
+          # 1. Close specialArgs here
+          specialArgs = { inherit inputs; };
+
+          # 2. modules is now a separate argument
+          modules = [
+            ./hosts/nixos-phukrit/configuration.nix
+          ];
         };
       };
     };
