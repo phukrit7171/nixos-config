@@ -72,6 +72,14 @@
     scheduler = "scx_rusty";
   };
 
+  environment.variables = {
+    # Force Wayland for Firefox/Electron apps
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = "1";
+    # NVIDIA VA-API hardware acceleration
+    LIBVA_DRIVER_NAME = "nvidia";
+  };
+
   # =================================================================
   # 2. NETWORKING & LOCALES
   # =================================================================
