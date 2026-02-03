@@ -27,13 +27,14 @@
             LTO_CLANG_FULL = yes;
             CC_OPTIMIZE_FOR_PERFORMANCE = yes;
             CC_OPTIMIZE_FOR_SIZE = no;
+            PREEMPT_VOLUNTARY = yes;
           };
         }).overrideAttrs
           (oldAttrs: {
             # 3. ใส่ Flags การคอมไพล์ที่ต้องการ
             NIX_CFLAGS_COMPILE = (oldAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
               "-O3"
-              "-march=tigerlake"
+              "-march=native"
               "-flto=full"
               "-pipe"
               "-fno-plt"
@@ -44,6 +45,7 @@
             makeFlags = (oldAttrs.makeFlags or [ ]) ++ [
               "LLVM=1"
               "LLVM_IAS=1"
+              "LD=ld.lld"
             ];
 
             # ดึง llvm มาช่วยช่วง Linking (สำหรับ lld)
