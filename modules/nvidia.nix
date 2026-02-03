@@ -15,7 +15,7 @@
   # 2. NVIDIA DRIVER CONFIG
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true; # [cite_start]RTX 20xx+ uses open kernel modules [cite: 28]
+    open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.production;
 
