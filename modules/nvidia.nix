@@ -35,10 +35,4 @@
     };
   };
 
-  # 3. ENVIRONMENT VARIABLES
-  environment.variables = {
-    MOZ_ENABLE_WAYLAND = "1";
-    NIXOS_OZONE_WL = "1";
-    LIBVA_DRIVER_NAME = "nvidia";
-  };
 }
