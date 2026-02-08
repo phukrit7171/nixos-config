@@ -26,6 +26,7 @@
       uv
 
       # Social/Tools
+      spotify
       discord-ptb
       tree
     ];
