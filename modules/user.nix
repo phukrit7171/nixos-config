@@ -31,7 +31,7 @@
 
       # Social/Tools
       spotify
-      discord-ptb
+      vesktop
       tree
 
       # Tools
