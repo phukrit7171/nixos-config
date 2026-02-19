@@ -54,6 +54,8 @@
     };
   };
 
+  environment.systemPackages = [ pkgs.kdePackages.skanpage ];
+
   hardware.printers.ensurePrinters = [
     {
       name = "Brother_DCP_T520W";

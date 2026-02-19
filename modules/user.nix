@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  # 1. USER CONFIG
   users.users.phukrit7171 = {
     isNormalUser = true;
     description = "Phukrit Kittinontana";
@@ -22,116 +21,14 @@
       google-chrome
       kdePackages.falkon
 
-      # Editors/Dev
-      vscode
-      zed-editor
-      fnm
-      uv
-      dbeaver-bin
-      antigravity
-
-      # Social/Tools
+      # Communication & Media
       spotify
       vesktop
-      tree
 
-      # Tools
+      # Utilities
       kdePackages.kcalc
-      htop
-      btop
     ];
   };
 
-  # 2. SHELL & TERMINAL
-  programs.starship.enable = true;
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      fnm env --use-on-cd | source
-    '';
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
-
-  # 3. SYSTEM PACKAGES (Available to all users)
-  environment.systemPackages = with pkgs; [
-    vim
-    neovim
-    helix
-    wget
-    curl
-    git
-    grc
-    sbctl
-    libfido2
-    usbutils
-    nil
-    nixfmt
-    nixd
-    lenovo-legion
-    pkgs.kdePackages.skanpage
-    xsane
-    pkg-config
-    gnumake
-    gcc
-  ];
-
-  # 4. PROGRAMS CONFIG
   programs.firefox.enable = true;
-
-  programs.git = {
-    enable = true;
-    config = {
-      user.name = "Mr.Phukrit Kittinontana";
-      user.email = "phukrit7171@gmail.com";
-      init.defaultBranch = "main";
-    };
-  };
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # --- The Essentials ---
-    stdenv.cc.cc
-    zlib
-    fuse3
-    icu
-    nss
-    openssl
-    curl
-    expat
-    libclang.lib
-    llvmPackages.libclang.lib
-    clang
-
-    # --- The "Ubuntu Standard" (What pkg-config usually looks for) ---
-    glib
-    libuuid
-    libusb1
-    libsecret
-    libnotify
-    libcap
-    systemd # provides libudev
-    dbus
-    at-spi2-atk
-
-    # --- Graphics & UI (Missing from your original list) ---
-    fontconfig
-    freetype
-    libGL
-    libGLU
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXrandr
-  ];
 }

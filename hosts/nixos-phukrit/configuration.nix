@@ -11,6 +11,8 @@
     ../../modules/desktop.nix
     ../../modules/nvidia.nix
     ../../modules/user.nix
+    ../../modules/shell.nix
+    ../../modules/dev.nix
   ];
 
   # =================================================================

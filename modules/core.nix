@@ -8,7 +8,7 @@
 
   # VPN Netbird
   services.netbird.enable = true;
-  environment.systemPackages = [ pkgs.netbird-ui ];
+  environment.systemPackages = with pkgs; [ netbird-ui ];
 
   # SYSTEM SERVICES
   zramSwap.enable = true;
