@@ -49,7 +49,7 @@
     brscan5.netDevices = {
       home = {
         model = "DCP-T520W";
-        ip = "192.168.1.104";
+        ip = "192.168.1.151";
       };
     };
   };
@@ -59,7 +59,7 @@
   hardware.printers.ensurePrinters = [
     {
       name = "Brother_DCP_T520W";
-      deviceUri = "ipp://192.168.1.104/ipp";
+      deviceUri = "ipp://192.168.1.151/ipp";
       model = "everywhere";
       description = "Brother DCP-T520W via IPP Everywhere";
     }

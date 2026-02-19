@@ -3,13 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/boot.nix
-    ../../modules/nixos/nix-settings.nix
-    ../../modules/nixos/core.nix
-    ../../modules/nixos/desktop.nix
-    ../../modules/nixos/nvidia.nix
-    ../../modules/nixos/user.nix
-    ../../modules/nixos/dev.nix
+    ../../modules/nixos/core/boot.nix
+    ../../modules/nixos/core/nix-settings.nix
+    ../../modules/nixos/core/core.nix
+    ../../modules/nixos/features/desktop.nix
+    ../../modules/nixos/features/nvidia.nix
+    ../../modules/nixos/core/user.nix
+    ../../modules/nixos/features/dev.nix
     inputs.home-manager.nixosModules.home-manager
   ];
 

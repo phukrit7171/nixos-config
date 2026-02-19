@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   nix.settings = {
@@ -11,6 +11,8 @@
     cores = 0;
     compress-build-log = true;
   };
+
+  environment.systemPackages = [ pkgs.nh ];
 
   # GARBAGE COLLECTION
   nix.gc = {

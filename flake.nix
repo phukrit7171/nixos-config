@@ -53,7 +53,14 @@
               git
               just
               nixfmt
+              nh
             ];
+          };
+
+          # Checks
+          checks = {
+            # Build the configuration to verify it works
+            nixos-phukrit = self.nixosConfigurations.nixos-phukrit.config.system.build.toplevel;
           };
         };
 
