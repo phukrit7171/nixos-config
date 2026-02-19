@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # Browsers
     brave
-    # microsoft-edge # 404 error
+
     google-chrome
     kdePackages.falkon
 
@@ -15,7 +15,7 @@
     # Editors & Dev
     vscode
     zed-editor
-    # antigravity # Assuming this is available or custom
+    antigravity
     fnm
     uv
     dbeaver-bin
