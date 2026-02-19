@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # Browsers
     brave
-    microsoft-edge
+    # microsoft-edge # 404 error
     google-chrome
     kdePackages.falkon
 

@@ -11,22 +11,10 @@
     lib.mkEnableOption "Security Configuration (Secure Boot & Secrets)";
 
   config = lib.mkIf config.modules.core.security.enable {
-    # 1. SECURE BOOT (Lanzaboote)
-    # WARNING: Requires manual key generation with `sbctl create-keys` and enrollment with `sbctl enroll-keys`
-
-    boot.lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-    };
-
-    # 2. SECRETS MANAGEMENT (sops-nix)
+    # SECRETS MANAGEMENT (sops-nix)
     # WARNING: Requires manual age key generation and secrets.yaml creation.
 
     environment.systemPackages = with pkgs; [
-      # Secure Boot
-      sbctl
-
-      # Secrets
       sops
       age
       ssh-to-age

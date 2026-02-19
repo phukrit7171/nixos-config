@@ -10,24 +10,20 @@
 
   config = lib.mkIf config.modules.core.boot.enable {
     # BOOTLOADER
-    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.systemd-boot.configurationLimit = 10;
 
-    # TPM & SECURE BOOT SUPPORT
+    # TPM SUPPORT
     boot.initrd.systemd.enable = true;
     boot.initrd.systemd.tpm2.enable = true;
     security.tpm2.enable = true;
     security.tpm2.pkcs11.enable = true;
     security.tpm2.tctiEnvironment.enable = true;
 
-    # LANZABOOTE (Secure Boot)
-    boot.lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-    };
-
     # KERNEL
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # Use default stable kernel for better Nvidia compatibility
+    boot.kernelPackages = pkgs.linuxPackages;
 
     # SYSCTL TWEAKS
     boot.kernel.sysctl = {
