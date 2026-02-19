@@ -10,12 +10,10 @@
     enable = lib.mkEnableOption "Nvidia Graphics Support";
     intelBusId = lib.mkOption {
       type = lib.types.str;
-      default = "PCI:0:2:0";
       description = "Bus ID of the Intel GPU";
     };
     nvidiaBusId = lib.mkOption {
       type = lib.types.str;
-      default = "PCI:1:0:0";
       description = "Bus ID of the Nvidia GPU";
     };
   };

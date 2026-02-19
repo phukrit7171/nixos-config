@@ -28,7 +28,11 @@
   modules.features.desktop.enable = true;
   modules.features.desktop.printing.enable = true;
   modules.features.desktop.scanning.enable = true;
-  modules.features.nvidia.enable = true;
+  modules.features.nvidia = {
+    enable = true;
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
   modules.features.dev.enable = true;
 
   # =================================================================
