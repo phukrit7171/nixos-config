@@ -64,17 +64,17 @@
       freetype
       libGL
       libGLU
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXrandr
+      libX11
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXrender
+      libXtst
+      libxcb
+      libXcomposite
+      libXrandr
     ];
   };
 }

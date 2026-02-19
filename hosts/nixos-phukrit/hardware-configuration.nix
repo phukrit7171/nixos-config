@@ -31,7 +31,12 @@
   fileSystems."/" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [ "subvol=@root" ];
+    options = [
+      "subvol=@root"
+      "compress=zstd"
+      "noatime"
+      "discard=async"
+    ];
   };
 
   boot.initrd.luks.devices."cryptroot" = {
@@ -42,7 +47,12 @@
   fileSystems."/nix" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [ "subvol=@nix" ];
+    options = [
+      "subvol=@nix"
+      "compress=zstd"
+      "noatime"
+      "discard=async"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -57,7 +67,12 @@
   fileSystems."/home" = {
     device = "/dev/mapper/crypthome";
     fsType = "btrfs";
-    options = [ "subvol=@home" ];
+    options = [
+      "subvol=@home"
+      "compress=zstd"
+      "noatime"
+      "discard=async"
+    ];
   };
 
   boot.initrd.luks.devices."crypthome" = {

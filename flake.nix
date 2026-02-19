@@ -18,6 +18,16 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -54,6 +64,9 @@
               just
               nixfmt
               nh
+              sbctl
+              sops
+              age
             ];
           };
 
@@ -71,6 +84,8 @@
             specialArgs = { inherit inputs self; };
             modules = [
               ./hosts/nixos-phukrit/configuration.nix
+              inputs.lanzaboote.nixosModules.lanzaboote
+              inputs.sops-nix.nixosModules.sops
             ];
           };
         };

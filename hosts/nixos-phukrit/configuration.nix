@@ -9,7 +9,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/core
+    ../../modules/nixos/core/default.nix
+    ../../modules/nixos/core/security.nix
     ../../modules/nixos/features
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -23,6 +24,7 @@
   modules.core.system.enable = true;
   modules.core.nix.enable = true;
   modules.core.user.enable = true;
+  modules.core.security.enable = true;
 
   # Features
   modules.features.desktop.enable = true;
@@ -63,7 +65,11 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.phukrit7171 = import ../../home/phukrit7171/home.nix;
+    users.phukrit7171 = {
+      imports = [
+        ../../home/phukrit7171/default.nix
+      ];
+    };
     extraSpecialArgs = { inherit inputs; };
   };
 
