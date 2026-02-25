@@ -15,6 +15,7 @@
     fnm
     uv
     dbeaver-bin
+    thonny
 
     # Utilities
     kdePackages.kcalc
