@@ -23,6 +23,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,6 +35,9 @@
       self,
       nixpkgs,
       flake-parts,
+      treefmt-nix,
+      sops-nix,
+      antigravity-nix,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -16,6 +16,7 @@
     uv
     dbeaver-bin
     thonny
+    inputs.antigravity-nix.packages.${pkgs.system}.default
 
     # Utilities
     kdePackages.kcalc
