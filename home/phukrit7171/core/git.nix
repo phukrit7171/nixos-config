@@ -2,9 +2,12 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    settings = {
-      user.name = "Mr.Phukrit Kittinontana";
-      user.email = "phukrit7171@gmail.com";
+
+    userName = "Mr.Phukrit Kittinontana";
+    userEmail = "phukrit7171@gmail.com";
+
+    # ค่าคอนฟิกอื่นๆ ให้ใส่ใน extraConfig
+    extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
     };
@@ -15,6 +18,9 @@
         contents = {
           user = {
             email = "phukrit.k@chanwanich.digital";
+          };
+          credential = {
+            credentialStore = "secretservice";
           };
         };
       }

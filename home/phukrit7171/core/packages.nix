@@ -17,7 +17,7 @@
     dbeaver-bin
     thonny
     inputs.antigravity-nix.packages.${pkgs.system}.default
-
+    git-credential-manager
     # Utilities
     kdePackages.kcalc
     tree
