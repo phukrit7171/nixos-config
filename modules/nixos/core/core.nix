@@ -1,43 +1,34 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-  options.modules.core.system.enable = lib.mkEnableOption "Core System Configuration";
+  # NETWORKING & TIME
+  networking.networkmanager.enable = true;
+  # time.timeZone handled by host config or default
 
-  config = lib.mkIf config.modules.core.system.enable {
-    # NETWORKING & TIME
-    networking.networkmanager.enable = true;
-    # time.timeZone handled by host config or default
+  # VPN Netbird
+  services.netbird.enable = true;
+  environment.systemPackages = with pkgs; [ netbird-ui ];
 
-    # VPN Netbird
-    services.netbird.enable = true;
-    environment.systemPackages = with pkgs; [ netbird-ui ];
+  # SYSTEM SERVICES
+  zramSwap.enable = true;
+  services.scx = {
+    enable = false; # it's bug
+    scheduler = "scx_lavd";
+    extraArgs = [ "--autopower" ];
+  };
 
-    # SYSTEM SERVICES
-    zramSwap.enable = true;
-    services.scx = {
-      enable = false; # it's bug
-      scheduler = "scx_lavd";
-      extraArgs = [ "--autopower" ];
-    };
+  services.openssh.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.fstrim.enable = true;
 
-    services.openssh.enable = true;
-    services.power-profiles-daemon.enable = true;
-    services.fstrim.enable = true;
-
-    # BLUETOOTH
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings.General = {
-        Enable = "Source,Sink,Media,Socket";
-        Experimental = true;
-        AutoEnable = true;
-      };
+  # BLUETOOTH
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.General = {
+      Enable = "Source,Sink,Media,Socket";
+      Experimental = true;
+      AutoEnable = true;
     };
   };
 }

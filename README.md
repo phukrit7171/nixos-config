@@ -1,14 +1,14 @@
 # 🏗️ NixOS Configuration — nixos-phukrit
 
-Declarative NixOS configuration for a **Lenovo Legion** laptop, built with **Flakes** and **flake-parts**.
+Declarative NixOS configuration for a **Lenovo Legion** laptop, built with a simple, vanilla **Flake**.
 
 ## ✨ Features
 
 | Feature | Details |
 |---|---|
-| **Flakes** | Fully reproducible with `flake.lock` |
-| **Modular Design** | System split into `core` and `features` modules |
-| **Home Manager** | User config split into `shell`, `git`, `packages` |
+| **Simple Flake** | No `flake-parts`, no abstraction. Just pure Nix. |
+| **System-Wide Config** | No `home-manager`. Everything is configured system-wide. |
+| **Flat Modules** | `core` and `features` modules are direct file imports, extremely easy to toggle. |
 | **KDE Plasma 6** | Wayland + SDDM |
 | **Nvidia Prime** | Sync mode (Intel + Nvidia) |
 | **BTRFS** | `compress=zstd`, `noatime`, `discard=async` |
@@ -16,7 +16,7 @@ Declarative NixOS configuration for a **Lenovo Legion** laptop, built with **Fla
 | **LUKS + TPM2** | Full disk encryption with auto-unlock |
 | **sops-nix** | Secrets management (ready to configure) |
 | **scx_lavd** | eBPF scheduler for improved responsiveness |
-| **treefmt** | Automated formatting with `nixfmt` |
+| **Nix Formatter** | Automated formatting with `nixfmt` |
 
 ## 📁 Structure
 
@@ -26,30 +26,24 @@ nixos-config/
 ├── flake.lock                        # Pinned dependencies
 │
 ├── hosts/
-│   └── nixos-phukrit/
-│       ├── configuration.nix         # Host-specific config & module composition
+│   └── 16ITH6H4/
+│       ├── configuration.nix         # Host-specific config & module imports
 │       └── hardware-configuration.nix # Hardware & BTRFS mounts
 │
 ├── modules/nixos/
-│   ├── core/
-│   │   ├── default.nix               # Imports all core modules
+│   ├── core/                       # Core system components
 │   │   ├── boot.nix                  # Bootloader, kernel, sysctl
 │   │   ├── core.nix                  # Networking, Bluetooth, services
+│   │   ├── git.nix                   # System-wide git config
 │   │   ├── nix-settings.nix          # Flakes, GC, store optimization
+│   │   ├── packages.nix              # Main user packages
 │   │   ├── security.nix              # sops-nix secrets management
+│   │   ├── shell.nix                 # Shell configurations (Fish)
 │   │   └── user.nix                  # User account & groups
-│   └── features/
-│       ├── default.nix               # Imports all feature modules
+│   └── features/                   # Optional features
 │       ├── desktop.nix               # Plasma 6, audio, printing, scanning
 │       ├── dev.nix                   # Dev tools, nix-ld
 │       └── nvidia.nix                # Nvidia drivers & Prime config
-│
-├── home/phukrit7171/
-│   ├── default.nix                   # Home Manager entry point
-│   └── core/
-│       ├── shell.nix                 # Fish, Starship, Direnv
-│       ├── git.nix                   # Git config
-│       └── packages.nix              # User packages
 │
 └── secrets/                          # (Create manually)
     └── secrets.yaml                  # sops-encrypted secrets
@@ -60,11 +54,8 @@ nixos-config/
 ### Apply Configuration
 
 ```bash
-# Using nh (recommended)
-nh os switch .
-
-# Or using nixos-rebuild
-sudo nixos-rebuild switch --flake .#nixos-phukrit
+# Using nixos-rebuild
+sudo nixos-rebuild switch --flake .#16ITH6H4
 ```
 
 ### Update Flake Inputs
@@ -87,21 +78,16 @@ nix develop
 
 ## 🔧 Module System
 
-All modules use `lib.mkEnableOption` and `lib.mkIf` for clean toggling in `configuration.nix`:
+All modules are strictly basic flat `.nix` files without wrapper abstractions (`lib.mkIf` etc). Enable or disable configurations by simply commenting out imports inside `hosts/16ITH6H4/configuration.nix`.
 
 ```nix
-# Enable/disable features in hosts/nixos-phukrit/configuration.nix
-modules.core.boot.enable = true;
-modules.core.system.enable = true;
-modules.core.nix.enable = true;
-modules.core.user.enable = true;
-modules.core.security.enable = true;
-
-modules.features.desktop.enable = true;
-modules.features.desktop.printing.enable = true;
-modules.features.desktop.scanning.enable = true;
-modules.features.nvidia.enable = true;
-modules.features.dev.enable = true;
+  imports = [
+    # ...
+    ../../modules/nixos/core/boot.nix
+    ../../modules/nixos/core/core.nix
+    # Comment this line to disable dev tools:
+    # ../../modules/nixos/features/dev.nix
+  ];
 ```
 
 ## 🔐 Secrets Setup (sops-nix)

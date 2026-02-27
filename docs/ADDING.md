@@ -6,16 +6,13 @@
    {
      imports = [
        ./hardware-configuration.nix
-       ../../modules/nixos/core/default.nix
-       ../../modules/nixos/core/security.nix
-       ../../modules/nixos/features
-       inputs.home-manager.nixosModules.home-manager
+       
+       # Import modules you want natively
+       ../../modules/nixos/core/boot.nix
+       ../../modules/nixos/core/core.nix
+       ../../modules/nixos/core/user.nix
+       ../../modules/nixos/features/desktop.nix
      ];
-
-     modules.core.boot.enable = true;
-     modules.core.system.enable = true;
-     modules.core.nix.enable = true;
-     modules.core.user.enable = true;
 
      networking.hostName = "<hostname>";
      system.stateVersion = "25.11";
@@ -29,7 +26,7 @@
 
 3. Add to `flake.nix`:
    ```nix
-   nixosConfigurations.<hostname> = nixpkgs.lib.nixosSystem {
+   nixosConfigurations."<hostname>" = nixpkgs.lib.nixosSystem {
      system = "x86_64-linux";
      specialArgs = { inherit inputs self; };
      modules = [
@@ -43,39 +40,21 @@
 
 # Adding a New Module
 
+This setup uses an extremely simple module structure without abstract toggles.
+
 1. Create `modules/nixos/<category>/<name>.nix`:
    ```nix
-   { pkgs, config, lib, ... }:
+   { pkgs, config, ... }:
    {
-     options.modules.<category>.<name>.enable =
-       lib.mkEnableOption "<Description>";
-
-     config = lib.mkIf config.modules.<category>.<name>.enable {
-       # Your configuration here
-     };
+     # Your system-wide configuration here
+     environment.systemPackages = [ pkgs.neovim ];
    }
    ```
 
-2. Import in the corresponding `default.nix`.
-
-3. Enable in `configuration.nix`:
+2. Enable the module by simply adding it to the `imports = []` array in your `hosts/<hostname>/configuration.nix`:
    ```nix
-   modules.<category>.<name>.enable = true;
+   imports = [
+     # ...
+     ../../modules/nixos/<category>/<name>.nix
+   ];
    ```
-
-# Adding Home Manager Programs
-
-Add a new file under `home/phukrit7171/core/` and import it in `home/phukrit7171/default.nix`.
-
-Example `home/phukrit7171/core/neovim.nix`:
-```nix
-{ pkgs, ... }:
-{
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-}
-```
-
-Then add `./core/neovim.nix` to the imports list in `default.nix`.

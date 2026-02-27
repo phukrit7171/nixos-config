@@ -9,39 +9,22 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/core/default.nix
+
+    # Core
+    ../../modules/nixos/core/boot.nix
+    ../../modules/nixos/core/core.nix
+    ../../modules/nixos/core/nix-settings.nix
     ../../modules/nixos/core/security.nix
-    ../../modules/nixos/features
-    inputs.home-manager.nixosModules.home-manager
+    ../../modules/nixos/core/user.nix
+    ../../modules/nixos/core/packages.nix
+    ../../modules/nixos/core/git.nix
+    ../../modules/nixos/core/shell.nix
+
+    # Features
+    ../../modules/nixos/features/desktop.nix
+    ../../modules/nixos/features/dev.nix
+    ../../modules/nixos/features/nvidia.nix
   ];
-
-  # =================================================================
-  # SYSTEM COMPOSITION (Enable Modules)
-  # =================================================================
-
-  # Core System
-  modules.core.boot.enable = true;
-  modules.core.system.enable = true;
-  modules.core.nix.enable = true;
-  modules.core.user.enable = true;
-  modules.core.security.enable = true;
-
-  # Features
-  programs.fish.enable = true;
-  modules.features.desktop.enable = true;
-  modules.features.desktop.printing.enable = true;
-  modules.features.desktop.scanning.enable = true;
-  programs.starship.enable = true;
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
-  modules.features.nvidia = {
-    enable = true;
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
-  modules.features.dev.enable = true;
 
   # =================================================================
   # HOST SPECIFIC CONFIGURATION
@@ -64,19 +47,6 @@
       ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
       RemainAfterExit = true;
     };
-  };
-
-  # Home Manager
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    users.phukrit7171 = {
-      imports = [
-        ../../home/phukrit7171/default.nix
-      ];
-    };
-    extraSpecialArgs = { inherit inputs; };
   };
 
   # Fonts

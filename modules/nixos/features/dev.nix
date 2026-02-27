@@ -1,78 +1,69 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-  options.modules.features.dev.enable = lib.mkEnableOption "Development Tools & Environment";
+  # --- System-wide Dev Tools ---
+  environment.systemPackages = with pkgs; [
+    # Editors (available to all users / root)
+    helix
 
-  config = lib.mkIf config.modules.features.dev.enable {
-    # --- System-wide Dev Tools ---
-    environment.systemPackages = with pkgs; [
-      # Editors (available to all users / root)
-      helix
+    # Build tools
+    pkg-config
+    gnumake
+    gcc
 
-      # Build tools
-      pkg-config
-      gnumake
-      gcc
+    # Nix tooling
+    nil
+    nixfmt
+    nixd
 
-      # Nix tooling
-      nil
-      nixfmt
-      nixd
+    # CLI essentials
+    wget
+    curl
+  ];
 
-      # CLI essentials
-      wget
-      curl
-    ];
+  # --- nix-ld (Run unpatched binaries) ---
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Core
+    stdenv.cc.cc
+    zlib
+    fuse3
+    icu
+    nss
+    openssl
+    curl
+    expat
 
-    # --- nix-ld (Run unpatched binaries) ---
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-      # Core
-      stdenv.cc.cc
-      zlib
-      fuse3
-      icu
-      nss
-      openssl
-      curl
-      expat
+    # LLVM / Clang
+    libclang.lib
+    clang
 
-      # LLVM / Clang
-      libclang.lib
-      clang
+    # System libraries
+    glib
+    libuuid
+    libusb1
+    libsecret
+    libnotify
+    libcap
+    systemd
+    dbus
+    at-spi2-atk
 
-      # System libraries
-      glib
-      libuuid
-      libusb1
-      libsecret
-      libnotify
-      libcap
-      systemd
-      dbus
-      at-spi2-atk
-
-      # Graphics & UI
-      fontconfig
-      freetype
-      libGL
-      libGLU
-      libX11
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrender
-      libXtst
-      libxcb
-      libXcomposite
-      libXrandr
-    ];
-  };
+    # Graphics & UI
+    fontconfig
+    freetype
+    libGL
+    libGLU
+    libX11
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrender
+    libXtst
+    libxcb
+    libXcomposite
+    libXrandr
+  ];
 }

@@ -1,7 +1,8 @@
 { pkgs, inputs, ... }:
 
 {
-  home.packages = with pkgs; [
+  # System-wide packages to replace the home-manager managed packages
+  environment.systemPackages = with pkgs; [
     # Credentials
     kdePackages.ksshaskpass
 
@@ -24,6 +25,7 @@
     thonny
     inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
     git-credential-manager
+
     # Utilities
     kdePackages.kcalc
     tree
