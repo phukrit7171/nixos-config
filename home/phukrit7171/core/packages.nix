@@ -2,7 +2,12 @@
 
 {
   home.packages = with pkgs; [
+    # Credentials
     kdePackages.ksshaskpass
+
+    # Office
+    libreoffice-fresh
+
     # Browsers
     brave
     google-chrome
