@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -20,6 +21,7 @@
             email = "phukrit.k@chanwanich.digital";
           };
           credential = {
+            helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
             credentialStore = "secretservice";
           };
         };

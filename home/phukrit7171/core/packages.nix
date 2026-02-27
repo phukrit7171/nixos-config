@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    kdePackages.ksshaskpass
     # Browsers
     brave
     google-chrome
