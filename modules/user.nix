@@ -11,6 +11,7 @@
       "scanner"
       "lpadmin"
       "lp"
+      "podman"
     ];
     shell = pkgs.fish;
   };

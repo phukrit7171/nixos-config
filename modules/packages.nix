@@ -20,6 +20,9 @@
     spotify
     vesktop
 
+    # Containers
+    podman-compose
+
     # Editors & Dev
     bruno
     zed-editor

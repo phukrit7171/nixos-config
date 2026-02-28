@@ -1,8 +1,6 @@
 {
-  inputs,
   pkgs,
   config,
-  lib,
   ...
 }:
 
@@ -22,6 +20,7 @@
     ../modules/security.nix
     ../modules/shell.nix
     ../modules/user.nix
+    ../modules/containers.nix
   ];
 
   # =================================================================
