@@ -15,7 +15,6 @@ Declarative NixOS configuration for a **Lenovo Legion** laptop, built with a sim
 | **Zram** | `swappiness=100` for optimal compression |
 | **LUKS + TPM2** | Full disk encryption with auto-unlock |
 | **sops-nix** | Secrets management (ready to configure) |
-| **scx_lavd** | eBPF scheduler for improved responsiveness |
 | **Nix Formatter** | Automated formatting with `nixfmt` |
 
 ## 📁 Structure

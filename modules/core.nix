@@ -12,9 +12,8 @@
   # SYSTEM SERVICES
   zramSwap.enable = true;
   services.scx = {
-    enable = false; # it's bug
-    scheduler = "scx_lavd";
-    extraArgs = [ "--autopower" ];
+    enable = true;
+    scheduler = "scx_bpfland";
   };
 
   services.openssh.enable = true;
